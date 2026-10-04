@@ -6,10 +6,15 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from main_api import get_db
+import os
+from dotenv import load_dotenv
+
+
 
 from models import Base
+load_dotenv()
 
-test_engine = create_engine("postgresql+psycopg2://postgres:Tribe666%40@localhost:5432/test_task_manager")
+test_engine = create_engine(os.getenv("database_url"))
 TestSession = sessionmaker(bind=test_engine)
 
 def override_get_db():
