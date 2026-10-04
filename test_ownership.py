@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 from models import Base
 load_dotenv()
 
-test_engine = create_engine(os.getenv("database_url"))
+test_engine = create_engine(os.getenv("test_database_url"))
 TestSession = sessionmaker(bind=test_engine)
 
 def override_get_db():
@@ -97,5 +97,5 @@ def test_ali_can_delete_his_own_task(ali_token):
 def test_duplicate_signup():
     response = client.post("/signup", json={"full_name":"Ali Hassnain", "user_name":"ali", "password":"ali"})
     assert response.status_code == 400
-    
+
 
