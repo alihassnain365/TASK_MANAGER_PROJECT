@@ -6,9 +6,7 @@ from fastapi import HTTPException
 import jwt
 import os
 from dotenv import load_dotenv
-
-
-load_dotenv()
+from config import JWT_SUPER_KEY
 
 
 def get_db():
@@ -22,7 +20,7 @@ security = HTTPBearer()
 def verify_token(credentials = Depends(security)):
     token = credentials.credentials
     try:
-        return jwt.decode(token, os.getenv("jwt_secret_key"), algorithms = ["HS256"])
+        return jwt.decode(token, JWT_SUPER_KEY, algorithms = ["HS256"])
 
     except jwt.InvalidTokenError as ite:
         print(f"The token is invalid or expired: {ite}")

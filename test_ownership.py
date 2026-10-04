@@ -94,3 +94,8 @@ def test_ali_can_delete_his_own_task(ali_token):
     ids_list = [task["id"] for task in response.json()]
     assert ali_task_id not in ids_list
 
+def test_duplicate_signup():
+    response = client.post("/signup", json={"full_name":"Ali Hassnain", "user_name":"ali", "password":"ali"})
+    assert response.status_code == 400
+    
+
