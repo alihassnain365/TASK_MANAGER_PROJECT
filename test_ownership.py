@@ -98,4 +98,10 @@ def test_duplicate_signup():
     response = client.post("/signup", json={"full_name":"Ali Hassnain", "user_name":"ali", "password":"ali"})
     assert response.status_code == 400
 
+def test_ali_can_mark_non_existent_task():
+    ali_token = get_token("ali","ali")
+    response = client.patch(f"/mark_task/{999999}/complete", headers={"Authorization": f"Bearer {ali_token}"} )
+    assert response.status_code == 404
+
+
 
